@@ -1,0 +1,39 @@
+services:
+  talker:
+    image: fasttalker
+    environment:
+      FASTRTPS_DEFAULT_PROFILES_FILE: /root/DEFAULT_FASTRTPS_PROFILES23.xml
+    privileged: true
+    command: ros2 run examples_rclcpp_minimal_publisher publisher_member_function
+    networks:
+      null1:
+        ipv4_address: 172.23.0.3
+      null2:
+        ipv4_address: 172.24.0.3
+
+  listener:
+    image: fasttalker
+    environment:
+      FASTRTPS_DEFAULT_PROFILES_FILE: /root/DEFAULT_FASTRTPS_PROFILES.xml
+    privileged: true
+    command: ros2 run examples_rclcpp_minimal_subscriber subscriber_member_function
+    networks:
+      null1:
+        ipv4_address: 172.23.0.2
+      null2:
+        ipv4_address: 172.24.0.2
+networks:
+  null1:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.23.0.0/24
+          gateway: 172.23.0.1
+  null2:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.24.0.0/24
+          gateway: 172.24.0.1
