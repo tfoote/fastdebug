@@ -13,8 +13,8 @@ services:
 
   listener:
     image: fasttalker
-    environment:
-      FASTRTPS_DEFAULT_PROFILES_FILE: /root/DEFAULT_FASTRTPS_PROFILES.xml
+    # environment:
+    #   FASTRTPS_DEFAULT_PROFILES_FILE: /root/DEFAULT_FASTRTPS_PROFILES.xml
     privileged: true
     command: ros2 run examples_rclcpp_minimal_subscriber subscriber_member_function
     networks:
